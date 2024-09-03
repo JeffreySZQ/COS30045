@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8"/>
+	<meta name="description"	content="Data Visualisation Exercise 1"/>
+	<meta name="keywords"		  content="HTML, CSS"/>
+	<meta name="author"			  content="Your name here"/>
+
+	<title>Task 1.1 HTML and CSS Demo Page</title>
+
+	<style>
+		/* Body background and typography */
+		body {
+			background-color: #f5f5f5;
+			font-family: Arial, sans-serif;
+			line-height: 1.6;
+			padding: 20px;
+		}
+
+		/* Container styling */
+		.container {
+			max-width: 800px;
+			margin: 0 auto;
+			background-color: #fff;
+			padding: 20px;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+			border-radius: 8px;
+		}
+
+		/* Header styling */
+		h1 {
+			font-size: 2.5em;
+			text-align: center;
+			color: #333;
+			margin-top: 20px;
+		}
+
+		h2 {
+			font-size: 1.5em;
+			text-align: center;
+			color: #666;
+			margin-bottom: 20px;
+		}
+
+		/* Button styling */
+		.button1, .button2, .button3 {
+			padding: 10px 20px;
+			margin: 10px;
+			background-color: #0056b3;
+			color: white;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+			transition: background-color 0.3s ease;
+		}
+
+		.button1:hover, .button2:hover, .button3:hover {
+			background-color: #003d82;
+		}
+
+		/* Image and figure caption styling */
+		figure {
+			text-align: center;
+			margin-top: 20px;
+		}
+
+		#ChartImg {
+			width: 50%;
+			display: none;
+			border: 2px solid #ccc;
+			border-radius: 10px;
+			margin: 0 auto;
+		}
+
+		#ChartCap {
+			margin-top: 10px;
+			font-style: italic;
+			color: #666;
+		}
+
+		/* Footer styling */
+		footer {
+			text-align: center;
+			padding: 10px;
+			background-color: #cccccc;
+			color: rgb(15, 13, 13);
+			margin-top: 40px;
+			border-radius: 8px;
+		}
+	</style>
+
+</head>
+
+<body>
+
+	<div class="container">
+		<h1>Pets and the Pandemic</h1>
+		<h2>Author of Interesting Article</h2>
+		<p>A report from Animal Medicines Australia (AMA) has found that many Australians took the opportunity to introduce a pet into their household during the pandemic. Their survey indicated that there was a significant increase in the percent of households taking in a new dog, fish or bird. Their research also indicated that pets had a number of positive influences on their lives such as:</p>
+
+		<ul>
+			<li>companionship</li>
+			<li>better mental health</li>
+			<li>joy and happiness.</li><br>
+		</ul>
+
+		<!-- Buttons to change the image -->
+		<button class="button1" onclick="show('pets2019.png', 'Fig 1. Percent of most popular pets owned by Australians in 2019', 'pets2019')">2019</button>
+		<button class="button2" onclick="show('pets2021.png', 'Fig 2. Percent of most popular pets owned by Australians in 2021', 'pets2021')">2021</button>
+		<button class="button3" onclick="show('pets20192021.png', 'Fig 3. Comparison of pet ownership in 2019 and 2021', 'pets20192021')">Both</button>
+
+		<!-- Figure to display the selected image and caption -->
+		<figure>
+			<img id="ChartImg" style="width:50%; display:none;" alt="Image of pet ownership data">
+			<figcaption id="ChartCap"></figcaption>
+		</figure>
+
+		<script>
+			function show(Image, ImgDesc, ImgAlt) {
+				document.getElementById('ChartImg').src = Image;
+				document.getElementById('ChartImg').alt = ImgAlt;
+				document.getElementById('ChartCap').innerHTML = ImgDesc;
+				document.getElementById('ChartImg').style.display = 'block';
+			}
+		</script>
+
+		<br>
+
+		<!-- Static image -->
+		<p>With the increase in pet ownership, the AMA is encouraging policy makers to consider the needs of companion animals and their owners when considering rental, strata and body corporate regulations, as well as accepting animals in public places and transport.</p>
+	</div>
+
+	<footer>COS30045 Data Visualisation</footer>
+
+</body>
+</html>
