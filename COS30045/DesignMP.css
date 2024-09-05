@@ -15,12 +15,13 @@ body {
 }
 
 .lab {
-    background-color: #bbb;
+    background-color: rgba(187, 187, 187, 0.5); /* Adjust the alpha (0.5) as needed */
     border-radius: 15px;
     padding: 20px;
     text-align: center;
     width: 200px;
 }
+
 
 .lab h2 {
     font-size: 20px;
@@ -48,3 +49,17 @@ body {
 .circle:empty {
     visibility: hidden;
 }
+
+body {
+    background-image: url('Autunm.jpg'); /* Replace with your image URL */
+    background-size: cover; /* Ensures the image covers the entire viewport */
+    background-position: center;
+    background-repeat: no-repeat; /* Avoid image repetition */
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+

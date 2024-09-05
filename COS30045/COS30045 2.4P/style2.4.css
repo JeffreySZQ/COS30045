@@ -1,25 +1,69 @@
-/* Button styling */
-.top-button {
-    display: inline-block;
-    padding: 10px 20px;
-    font-size: 16px;
-    color: white;
-    background-color: #1b7ae7;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+/* Main Button Styling */
+.button-64 {
+    display: inline-flex;
     text-align: center;
+    align-items: center;
+    justify-content: center;
+    background-image: linear-gradient(144deg, #AF40FF, #5B42F3 50%, #00DDEB);
+    border: none;
+    border-radius: 8px;
+    box-shadow: rgba(151, 65, 252, 0.2) 0 10px 20px -5px;
+    color: #FFFFFF;
+    font-family: 'Phantomsans', sans-serif;
+    font-size: 16px; /* Reduced font size */
+    line-height: 1;
+    min-width: 100px; /* Reduced min-width */
+    max-width: 120px; /* Ensure the buttons are smaller */
+    padding: 8px 15px; /* Smaller padding */
+    cursor: pointer;
     text-decoration: none;
-    margin: 10px;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    white-space: nowrap;
+    transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
+    margin: 0 5px; /* Space between buttons */
 }
 
-.top-button:hover {
-    background-color: #45a049;
+/* Inner Span Styling */
+.button-64 span {
+    background-color: rgb(5, 6, 45);
+    padding: 12px 18px; /* Adjusted padding */
+    border-radius: 6px;
+    width: 100%;
+    height: 100%;
+    transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
 }
 
-/* Flex container for buttons */
+/* Hover and Active States */
+.button-64:hover {
+    transform: translateY(-3px); /* Smooth lift effect */
+    box-shadow: rgba(151, 65, 252, 0.4) 0 20px 40px -10px;
+}
+
+.button-64:active {
+    transform: translateY(0);
+    box-shadow: rgba(151, 65, 252, 0.2) 0 15px 30px -5px;
+}
+
+.button-64:hover span {
+    background-color: transparent;
+}
+
+/* Container for keeping buttons on one line */
 .button-container {
     display: flex;
     justify-content: center;
+    align-items: center;
+    flex-wrap: nowrap; /* No wrapping, keep on one line */
+    gap: 10px; /* Add space between buttons */
     margin-bottom: 20px;
+}
+
+/* Media Query for Larger Screens */
+@media (min-width: 768px) {
+    .button-64 {
+      font-size: 18px; /* Slightly larger font for big screens */
+      min-width: 120px; /* Adjusted for larger screens */
+    }
 }
