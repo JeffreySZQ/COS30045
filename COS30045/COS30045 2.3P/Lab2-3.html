@@ -10,20 +10,8 @@
     <title>Task 2.1 D3 Data Binding</title>
     <!-- Insert description of exercise -->
     <script src="https://d3js.org/d3.v7.min.js"></script>
-    <style>
-        .top-button {
-            margin: 0 10px;
-            text-decoration: none;
-            color: blue;
-        }
-        .button-container {
-            margin-bottom: 20px;
-        }
-        footer {
-            color: grey;
-            font-size: 0.8em;
-        }
-    </style>
+
+    <link rel="stylesheet" href="style2.3.css">
 </head>
 <body>
 
@@ -85,7 +73,7 @@
             .attr("x", function(d) { return xScale(d[0]) + 10; })
             .attr("y", function(d) { return yScale(d[1]) - 1; })
             .attr("fill", "green");
-            
+
     </script>
 
     <br>
