@@ -44,10 +44,21 @@ body {
     font-size: 14px;
     text-align: center;
     line-height: 50px;
+    text-decoration: none; /* Remove any underline */
+    outline: none; /* Remove any focus outline */
 }
+
 
 .circle:empty {
     visibility: hidden;
+}
+
+.circle:focus {
+    outline: none; /* Prevent outline on focus */
+}
+
+.circle:active {
+    outline: none; /* Prevent outline when clicking */
 }
 
 body {
