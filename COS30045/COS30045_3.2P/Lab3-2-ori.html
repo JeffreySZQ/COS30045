@@ -1,30 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8"/>
     <meta name="description" content="Data Visualisation"/>
     <meta name="keywords" content="HTML, CSS"/>
     <meta name="author" content="See Zhi Qian"/>
 
-    <title>Task 3.1</title>
-    <!-- Insert description of exercise -->
+    <title>Task 3.2</title>
     <script src="https://d3js.org/d3.v7.min.js"></script>
-
-    <link rel="stylesheet" href="style3.1.css">
+    <link rel="stylesheet" href="style3.2.css">
 </head>
 <body>
 
     <div class="button-container">
         <a href="../index.html" class="button-64" role="button"><span class="text">Main</span></a>
-        <a href="../COS30045 3.1P/Lab3-1.html" class="button-64" role="button"><span class="text">Lab 3.1</span></a>
-        <a href="../COS30045 3.2P/Lab3-2.html" class="button-64" role="button"><span class="text">Lab 3.2</span></a>
+        <a href="../COS30045_3.1P/Lab3-1.html" class="button-64" role="button"><span class="text">Lab 3.1</span></a>
+        <a href="../COS30045_3.2P/Lab3-2.html" class="button-64" role="button"><span class="text">Lab 3.2</span></a>
     </div>
 
     <h1>Drawing with Data</h1>
     <h2>Author: See Zhi Qian</h2>
 
-    <!-- Add a div to hold the SVG element -->
     <div id="chart"></div>
 
     <script>
@@ -36,7 +32,7 @@
         ];
 
         var w = 800;
-        var h = 160;
+        var h = 300;
         var padding = 30;
 
         var xScale = d3.scaleLinear()
@@ -72,9 +68,21 @@
             .attr("y", function(d) { return yScale(d[1]) - 1; })
             .attr("fill", "green");
 
+        // Add X-axis
+        var xAxis = d3.axisBottom(xScale)
+        .ticks(5);
+        svg.append("g")
+           .attr("transform", "translate(0," + (h - padding) + ")")
+           .call(xAxis);
+
+        // Add Y-axis
+        var yAxis = d3.axisLeft(yScale)
+        .ticks(5);
+        svg.append("g")
+           .attr("transform", "translate(" + padding + ",0)")
+           .call(yAxis);
     </script>
 
-    <br>
     <footer>COS30045 Data Visualisation<br>
         Joe Bloggs</footer>
 
