@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Data Visualisation" />
+    <meta name="keywords" content="HTML, CSS" />
+    <meta name="author" content="See Zhi Qian" />
+
+    <title>Task 2.2</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+
+    <link rel="stylesheet" href="style5.1.css">
+
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            font-size: 30px;
+            margin-top: 40px;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+
+        h2 {
+            font-size: 18px;
+            margin-top: -10px;
+            color: grey;
+            margin-left: 10px;
+        }
+
+        /* Button Styling */
+        #updateButton {
+            background-color: #1E90FF;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-left: 10px;
+            margin-top: 10px;
+        }
+
+        #updateButton:hover {
+            background-color: #4682B4;
+        }
+
+        /* Align SVG (Bar Chart) */
+        svg {
+            display: block;
+            margin-left: 50px;
+            margin-top: 20px;
+        }
+
+        footer {
+            color: grey;
+            font-size: 14px;
+            margin-top: 30px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="button-container">
+        <a href="../index.html" class="button-64" role="button"><span class="text">Main</span></a>
+        <a href="../COS30045_5.1P/Lab5-1.html" class="button-64" role="button"><span class="text">Lab 5.1</span></a>
+        <a href="../COS30045_5.2P/Lab5-2.html" class="button-64" role="button"><span class="text">Lab 5.2</span></a>
+        <a href="../COS30045_5.3P/Lab5-3.html" class="button-64" role="button"><span class="text">Lab 5.3</span></a>
+    </div>
+    <article class="content">
+        <h1>Update Data</h1>
+        <h2>Author: See Zhi Qian</h2>
+
+        <!-- Button placed below header -->
+        <button id="updateButton">Update</button>
+        <br>
+
+        <script>
+            var w = 500;
+            var h = 100;
+            var barPadding = 3;
+
+            var dataset = [12, 10, 29, 19, 8, 15, 20, 12, 9, 6, 21, 28]; // Initial dataset
+
+            var svg = d3.select("body")
+                        .append("svg")
+                        .attr("width", w)
+                        .attr("height", h);
+
+            // Create the initial bar chart
+            function drawBars(data) {
+                var xscale = d3.scaleBand()
+                                .domain(d3.range(data.length))
+                                .range([0, w])
+                                .paddingInner(0.05);
+
+                var yscale = d3.scaleLinear()
+                                .domain([0, d3.max(data)])
+                                .range([h, 0]);
+
+                // Create bars
+                var bars = svg.selectAll("rect")
+                                .data(data);
+
+                bars.enter()
+                    .append("rect")
+                    .merge(bars)
+                    .attr("x", function(d, i) {
+                        return xscale(i);
+                    })
+                    .attr("y", function(d) {
+                        return yscale(d);
+                    })
+                    .attr("width", xscale.bandwidth())
+                    .attr("height", function(d) {
+                        return h - yscale(d);
+                    })
+                    .attr("fill", "rgb(106,90,205)");
+
+                // Add text to bars
+                var labels = svg.selectAll("text")
+                                .data(data);
+
+                labels.enter()
+                    .append("text")
+                    .merge(labels)
+                    .text(function(d) {
+                        return d;
+                    })
+                    .attr("x", function(d, i) {
+                        return xscale(i) + xscale.bandwidth() / 2;
+                    })
+                    .attr("y", function(d) {
+                        return yscale(d) + 15;
+                    })
+                    .attr("fill", "black")
+                    .attr("text-anchor", "middle");
+
+                // remove all the bars and labels before updating
+                bars.exit().remove();
+                labels.exit().remove();
+            }
+
+            // Draw the initial chart
+            drawBars(dataset);
+
+            // Button click event
+            d3.select("#updateButton").on("click", function() {
+                // Now, update the dataset with new random values
+                dataset = dataset.map(function() {
+                    return Math.floor(Math.random() * 30); // New random values
+                });
+
+                // redraw if updated
+                drawBars(dataset);
+            });
+        </script>
+
+        <footer>COS30045 Data Visualisation<br>See Zhi Qian</footer>
+    </article>
+</body>
+
+</html>
