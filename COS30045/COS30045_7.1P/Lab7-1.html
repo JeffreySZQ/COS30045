@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Unemployment Line Chart</title>
     <script src="https://d3js.org/d3.v7.min.js"></script>
+    <link rel="stylesheet" href="style7.1.css">
     <style>
         .area {
             fill: steelblue;
@@ -29,11 +30,29 @@
             fill: red;
             font-size: 12px;
         }
+        .axis-label {
+            font-size: 12px;
+            font-weight: bold;
+        }
+        .chart-title {
+            text-anchor: middle;
+            font-size: 35px;
+            font-weight: bold;
+            fill: black;
+        }
     </style>
 </head>
 <body>
+
+    <div class="button-container">
+        <a href="../index.html" class="button-64" role="button"><span class="text">Main</span></a>
+        <a href="../COS30045_7.1P/Lab7-1.html" class="button-64" role="button"><span class="text">Lab 7.1</span></a>
+        <a href="../COS30045_7.2P/Lab7-2.html" class="button-64" role="button"><span class="text">Lab 7.2</span></a> 
+        <a href="../COS30045_7.3P/Lab7-3.html" class="button-64" role="button"><span class="text">Lab 7.3</span></a> 
+    </div>
+
+    <h1 class="chart-title">Number of Unemployed in Australia</h1>
     <div id="chart"></div>
-    <svg width="600" height="300"></svg>
     <script src="Lab7-1.js"></script>
 </body>
 </html>
