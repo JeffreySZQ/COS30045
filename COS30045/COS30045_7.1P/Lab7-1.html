@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unemployment Line Chart</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        .area {
+            fill: steelblue;
+            opacity: 0.5;
+        }
+        .line {
+            fill: none;
+            stroke: steelblue;
+            stroke-width: 2px;
+        }
+        .axis path,
+        .axis line {
+            fill: none;
+            shape-rendering: crispEdges;
+        }
+        .halfMilMark {
+            stroke: red;
+            stroke-width: 1px;
+            stroke-dasharray: 4;
+        }
+        .halfMilLabel {
+            fill: red;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div id="chart"></div>
+    <svg width="600" height="300"></svg>
+    <script src="Lab7-1.js"></script>
+</body>
+</html>
