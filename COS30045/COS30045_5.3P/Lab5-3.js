@@ -1,126 +1,167 @@
+function init() {
+    var w = 500;
+    var h = 150;
 
-        // Set up chart dimensions
-        var w = 600;
-        var h = 300;
-        var barPadding = 5;
-        var marginTop = 40;
+    var dataset = [14, 5, 26, 23, 9, 10, 28, 3, 7, 13];
 
-        // Initial dataset
-        var dataset = [20, 35, 25, 50, 40, 30, 45, 25, 35, 20];
+    var xScale = d3.scaleBand()
+        .domain(d3.range(dataset.length))
+        .rangeRound([0, w])
+        .paddingInner(0.05);
 
-        // Create x and y scales
-        var xScale = d3.scaleBand()
-            .domain(d3.range(dataset.length))
-            .rangeRound([0, w])
-            .paddingInner(0.05);
+    var yScale = d3.scaleLinear()
+        .domain([0, d3.max(dataset)])
+        .range([0, h]);
 
-        var yScale = d3.scaleLinear()
-            .domain([0, d3.max(dataset)])
-            .range([h, 0]);
+    var svg = d3.select("#rec")
+        .append("svg")
+        .attr("width", w)
+        .attr("height", h);
 
-        // Create SVG element
-        var svg = d3.select("body")
-            .append("svg")
-            .attr("width", w)
-            .attr("height", h + marginTop)
-            .append("g")
-            .attr("transform", "translate(0," + marginTop + ")");
+    svg.selectAll("rect")
+        .data(dataset)
+        .enter()
+        .append("rect")
+        .attr("x", function(d, i) {
+            return xScale(i);
+        })
+        .attr("y", function(d) {
+            return h - yScale(d);
+        })
+        .attr("width", xScale.bandwidth())
+        .attr("height", function(d) {
+            return yScale(d);
+        })
+        .attr("fill", "rgb(255,192,203)");  // Apply fill to bars
 
-        // Function to render chart
-        function renderChart() {
-            // Bind data to bars
+    svg.selectAll("text")
+        .data(dataset)
+        .enter()
+        .append("text")
+        .text(function(d) {
+            return d;
+        })
+        .attr("fill", "black")
+        .attr("text-anchor", "middle")
+        .attr("x", function(d, i) {
+            return xScale(i) + xScale.bandwidth() / 2;
+        })
+        .attr("y", function(d) {
+            return h - yScale(d) + 14;
+        });
+
+    // Add new data
+d3.select("#addButton")
+.on("click", function() {
+    var maxValue = 25;
+    var newNumber = Math.floor(Math.random() * maxValue);
+    dataset.push(newNumber);
+    xScale.domain(d3.range(dataset.length));
+
+    // Update bars
+    var bars = svg.selectAll("rect")
+        .data(dataset);
+
+    bars.enter()
+        .append("rect")
+        .attr("x", w)
+        .attr("y", function(d) {
+            return h - yScale(d);
+        })
+        .attr("width", xScale.bandwidth())
+        .attr("height", function(d) {
+            return yScale(d);
+        })
+        .attr("fill", "rgb(255,192,203)")  // Set fill color for new bars
+        .merge(bars)
+        .transition()
+        .duration(500)
+        .attr("x", function(d, i) {
+            return xScale(i);
+        })
+        .attr("y", function(d) {
+            return h - yScale(d);
+        })
+        .attr("width", xScale.bandwidth())
+        .attr("height", function(d) {
+            return yScale(d);
+        });
+
+    // Update text
+    var texts = svg.selectAll("text")
+        .data(dataset);
+
+    texts.enter()
+        .append("text")
+        .attr("x", w) // Start the text from the far right, will move it later
+        .attr("y", function(d) {
+            return h - yScale(d) + 14;
+        })
+        .merge(texts)
+        .transition()
+        .duration(500)
+        .text(function(d) {
+            return d;
+        })
+        .attr("x", function(d, i) {
+            return xScale(i) + xScale.bandwidth() / 2;  // Center the text horizontally
+        })
+        .attr("y", function(d) {
+            return h - yScale(d) + 14;  // Position the text slightly below the top of the bar
+        })
+        .attr("text-anchor", "middle");  // Align the text in the middle horizontally
+});
+
+
+    // Remove data
+    d3.select("#removeButton")
+        .on("click", function() {
+            dataset.pop();
+            xScale.domain(d3.range(dataset.length));
+
             var bars = svg.selectAll("rect")
                 .data(dataset);
 
-            // Enter phase for new data
-            bars.enter()
-                .append("rect")
-                .attr("x", function (d, i) {
-                    return xScale(i);
-                })
-                .attr("y", h)  // Start from bottom
-                .attr("width", xScale.bandwidth())
-                .attr("height", 0)  // Initial height 0 for smooth animation
-                .attr("fill", "steelblue")
-                .merge(bars)  // Merge with existing bars
-                .transition()
-                .duration(1000)
-                .attr("x", function (d, i) {
-                    return xScale(i);
-                })
-                .attr("y", function (d) {
-                    return yScale(d);
-                })
-                .attr("height", function (d) {
-                    return h - yScale(d);
-                });
-
-            // Bind data to text labels
-            var labels = svg.selectAll("text")
-                .data(dataset);
-
-            // Enter phase for new labels
-            labels.enter()
-                .append("text")
-                .attr("x", function (d, i) {
-                    return xScale(i) + xScale.bandwidth() / 2;
-                })
-                .attr("y", h)  // Start from bottom
-                .attr("fill", "black")
-                .attr("text-anchor", "middle")
-                .merge(labels)
-                .transition()
-                .duration(1000)
-                .text(function (d) {
-                    return d;
-                })
-                .attr("x", function (d, i) {
-                    return xScale(i) + xScale.bandwidth() / 2;
-                })
-                .attr("y", function (d) {
-                    return yScale(d) - 5;
-                });
-
-            // Exit phase for removing data
             bars.exit()
                 .transition()
-                .duration(1000)
-                .attr("x", w)  // Move out of view
-                .attr("height", 0)
-                .remove();
-
-            labels.exit()
-                .transition()
-                .duration(1000)
+                .duration(500)
                 .attr("x", w)
                 .remove();
-        }
 
-        // Initial render
-        renderChart();
+            bars.transition()
+                .duration(500)
+                .attr("x", function(d, i) {
+                    return xScale(i);
+                })
+                .attr("y", function(d) {
+                    return h - yScale(d);
+                })
+                .attr("width", xScale.bandwidth())
+                .attr("height", function(d) {
+                    return yScale(d);
+                });
 
-        // Add bar button functionality
-        d3.select("#addButton").on("click", function () {
-            // Generate a new random number and add it to the dataset
-            var newNumber = Math.floor(Math.random() * 50) + 10;
-            dataset.push(newNumber);
+            var texts = svg.selectAll("text")
+                .data(dataset);
 
-            // Update xScale domain
-            xScale.domain(d3.range(dataset.length));
+            texts.exit()
+                .transition()
+                .duration(200)
+                .attr("x", w)
+                .remove();
 
-            // Render chart
-            renderChart();
+            texts.transition()
+                .duration(500)
+                .text(function(d) {
+                    return d;
+                })
+                .attr("x", function(d, i) {
+                    return xScale(i) + xScale.bandwidth() / 2;
+                })
+                .attr("y", function(d) {
+                    return h - yScale(d) + 14;
+                });
         });
+}
 
-        // Remove bar button functionality
-        d3.select("#removeButton").on("click", function () {
-            // Remove the first element from the dataset
-            dataset.shift();
-
-            // Update xScale domain
-            xScale.domain(d3.range(dataset.length));
-
-            // Render chart
-            renderChart();
-        });
-    
+window.onload = init;
