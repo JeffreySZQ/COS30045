@@ -22,6 +22,9 @@ function init() {
         .attr("width", w)
         .attr("height", h);
 
+    // Create a tooltip div and hide it initially
+    var tooltip = d3.select("#tooltip");
+
     // Load in the unemployment data
     d3.csv("VIC_LGA_unemployment.csv").then(function (data) {
         // Set the input domain for the color scale
@@ -76,7 +79,21 @@ function init() {
                         return projection([+d.lon, +d.lat])[1];
                     })
                     .attr("r", 4) // Radius of the circle
-                    .style("fill", "red"); // Circle color
+                    .style("fill", "red") // Circle color
+                    .on("mouseover", function (event, d) {
+                        // Show the tooltip with the city name
+                        tooltip.style("visibility", "visible")
+                               .text(d.place); // Replace 'city' with the actual column name in the CSV file
+                    })
+                    .on("mousemove", function (event) {
+                        // Move the tooltip with the mouse
+                        tooltip.style("top", (event.pageY - 10) + "px")
+                               .style("left", (event.pageX + 10) + "px");
+                    })
+                    .on("mouseout", function () {
+                        // Hide the tooltip
+                        tooltip.style("visibility", "hidden");
+                    });
             });
         });
     });
