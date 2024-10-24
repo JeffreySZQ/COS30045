@@ -34,7 +34,7 @@ function init() {
         ]);
 
         // Load in GeoJSON data for LGA boundaries
-        d3.json("LGA_VIC.json").then(function (json) {
+        d3.json("https://raw.githubusercontent.com/JeffreySZQ/COS30045/refs/heads/main/COS30045/COS30045_8.2P/LGA_VIC.json").then(function (json) {
             // Merge the CSV data with the GeoJSON data
             data.forEach(function (csvData) {
                 var LGAName = csvData.LGA; // CSV LGA name
