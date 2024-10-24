@@ -10,7 +10,7 @@ body {
 
 .container {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(5, 1fr);
     gap: 20px;
 }
 
@@ -20,8 +20,12 @@ body {
     padding: 20px;
     text-align: center;
     width: 200px;
+    height: 200px;
 }
 
+.lab:hover {
+    box-shadow: 2px 2px 2px 0px #333;
+}
 
 .lab h2 {
     font-size: 20px;
